@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Specifications</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #614a3b;
+            color: white;
+        }
+        .tab {
+            overflow: hidden;
+            border: 1px solid #614a3b;
+            background-color: #dfd398;
+        }
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+             padding: 14px 16px;
+            transition: 0.3s;
+        }
+        .tab button:hover {
+            background-color: #614a3b;
+        }
+        .tab button.active {
+            background-color: #9e5567;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #614a3b;
+            border-top: none;
+        }
+        .auth-links {
+           text-align: right;
+           padding: 10px;
+        }
+        .telegram-link{
+             margin-bottom: 20px;
+        }
+        .btn-generate{
+            background-color: #0bac6b;
+             color: white;
+             border-color: #0bac6b;
+        }
+        .btn-generate:hover {
+             background-color: #077e4e;
+            border-color: #077e4e;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+      <div class="auth-links">
+      {% if 'user_id' in session %}
+        <span>Вы авторизованы</span>
+        <a href="{{ url_for('logout') }}" style="color: #0bac6b;">Выйти</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" style="color: #0bac6b;">Войти</a> | <a href="{{ url_for('register') }}" style="color: #0bac6b;">Зарегистрироваться</a>
+      {% endif %}
+      </div>
+       <div class="d-flex align-items-start">
+            <div class="telegram-link">
+                <a href="https://t.me/Podhalim_DnD_bot" target="_blank">
+                     <img src="https://i.pinimg.com/736x/52/64/ed/5264ed1479a87755037a422e9713630c.jpg" alt="Telegram Bot" style="width: 147.5px;">
+                </a>
+           </div>
+         <div class = "flex-grow-1">
+              <div class="tab">
+                <button class="tablinks active" onclick="openTab(event, 'Random')">Random Character</button>
+                {% if is_admin or is_editor %}
+                    <button class="tablinks" onclick="location.href='{{ url_for('characteristics') }}'">Characteristics</button>
+                {% endif %}
+                {% if is_admin %}
+                    <button class="tablinks" onclick="location.href='{{ url_for('statistic') }}'">Statistic</button>
+                {% endif %}
+                </div>
+
+                <div id="Random" class="tabcontent" style="display: block;">
+                       <style>
+                            #Random .btn-primary {
+                              background-color: #0bac6b;
+                              border-color: #0bac6b;
+                            }
+                           #Random .btn-primary:hover {
+                                 background-color: #077e4e;
+                                 border-color: #077e4e;
+                           }
+                         </style>
+                    <h1 class="mt-3">Generate Random Character Specifications</h1>
+                        {% if 'user_id' in session %}
+                            <form action="{{ url_for('submit') }}" method="post">
+                                <label for="generate">Click to generate:</label>
+                                <input type="submit" class="btn btn-primary" value="Generate">
+                            </form>
+                        {% else %}
+                            <p>Для генерации персонажа необходимо авторизоваться</p>
+                        {% endif %}
+                </div>
+            </div>
+       </div>
+   </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>

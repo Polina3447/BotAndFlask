@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Results</title>
+        <style>
+        body {
+            background-color: #614a3b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Character Specifications</h1>
+    <p>ID: {{ specifications[0] }}</p>
+    <p>Name: {{ specifications[1] }}</p>  <!-- Отображаем имя -->
+    <p>Strength: {{ specifications[2] }}</p>
+    <p>Constitution: {{ specifications[3] }}</p>
+    <p>Dexterity: {{ specifications[4] }}</p>
+    <p>Intelligence: {{ specifications[5] }}</p>
+    <p>Wisdom: {{ specifications[6] }}</p>
+    <p>Charisma: {{ specifications[7] }}</p>
+    <a href="{{ url_for('index') }}" style="color: #0bac6b;">Back</a>
+</body>
+</html>
